@@ -1,0 +1,52 @@
+<h2 mat-dialog-title>Historia Clínica de {{ data.paciente.nombre }} {{ data.paciente.apellido }}</h2>
+<mat-dialog-content>
+    <form [formGroup]="form">
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Altura (cm)</mat-label>
+            <input matInput formControlName="altura" appSoloNumeros [longitudMaxima]="3" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Peso (kg)</mat-label>
+            <input matInput formControlName="peso" appSoloNumeros [permitirDecimales]="true" [longitudMaxima]="5" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Temperatura (°C)</mat-label>
+            <input matInput formControlName="temperatura" appSoloNumeros [permitirDecimales]="true" [longitudMaxima]="4" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Presión</mat-label>
+            <input matInput formControlName="presion" />
+        </mat-form-field>
+
+        <div class="dinamicos-section">
+            <label>Datos adicionales (máx. 3)</label>
+            <div class="dinamicos-inputs" *ngIf="!data.soloLectura">
+                <mat-form-field appearance="fill">
+                    <mat-label>Clave</mat-label>
+                    <input matInput [(ngModel)]="clave" name="clave" [ngModelOptions]="{standalone: true}" />
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Valor</mat-label>
+                    <input matInput [(ngModel)]="valor" name="valor" [ngModelOptions]="{standalone: true}" />
+                </mat-form-field>
+                <button mat-raised-button color="primary" type="button" (click)="agregarDinamico()"
+                    [disabled]="dinamicos.length>=3">Agregar</button>
+            </div>
+            <ul>
+                <li *ngFor="let d of dinamicos; let i = index">
+                    <strong>{{ d.clave }}:</strong> {{ d.valor }}
+                    <button *ngIf="!data.soloLectura" mat-icon-button color="warn" (click)="eliminarDinamico(i)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" *ngIf="!data.soloLectura">
+  <button mat-button (click)="cancelar()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="guardar()" [disabled]="!form.valid">Guardar</button>
+</mat-dialog-actions>
+<mat-dialog-actions align="end" *ngIf="data.soloLectura">
+  <button mat-button (click)="cancelar()">Cerrar</button>
+</mat-dialog-actions>

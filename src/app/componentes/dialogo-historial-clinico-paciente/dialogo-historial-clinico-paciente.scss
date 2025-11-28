@@ -1,0 +1,300 @@
+// Estilos para el diálogo de historial clínico con tema azul/celeste
+:host ::ng-deep {
+  .mat-mdc-dialog-container {
+    background: linear-gradient(135deg, #fff, #f8fbff);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(25, 118, 210, 0.15);
+    overflow: hidden;
+  }
+  
+  .mat-mdc-dialog-content {
+    overflow-x: hidden !important;
+  }
+  
+  button[mat-button] {
+    border-radius: 8px !important;
+    padding: 12px 24px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    margin: 4px !important;
+    
+    &[color="primary"] {
+      background: linear-gradient(135deg, #1976d2, #42a5f5) !important;
+      color: white !important;
+      box-shadow: 0 3px 12px rgba(25, 118, 210, 0.3) !important;
+      
+      &:hover {
+        transform: translateY(-1px) !important;
+        box-shadow: 0 4px 16px rgba(25, 118, 210, 0.4) !important;
+      }
+    }
+    
+    &:not([color="primary"]) {
+      background: linear-gradient(135deg, #64b5f6, #90caf9) !important;
+      color: white !important;
+      box-shadow: 0 3px 12px rgba(66, 165, 245, 0.3) !important;
+      
+      &:hover {
+        transform: translateY(-1px) !important;
+        box-shadow: 0 4px 16px rgba(66, 165, 245, 0.4) !important;
+      }
+    }
+  }
+}
+
+h2[mat-dialog-title] {
+  color: #1976d2 !important;
+  background: linear-gradient(135deg, #f8fbff, #e3f2fd);
+  margin: -24px -24px 20px -24px;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 2px solid #e3f2fd;
+  font-weight: 600;
+}
+
+mat-card {
+    margin-bottom: 1.2rem;
+    background: linear-gradient(135deg, #f8fbff, #e3f2fd);
+    color: #1976d2;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid #e3f2fd;
+    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.1);
+    transition: all 0.3s ease;
+
+    &:hover {
+        box-shadow: 0 6px 20px rgba(25, 118, 210, 0.15);
+        transform: translateY(-2px);
+    }
+
+    mat-card-header {
+        margin-bottom: 1rem;
+        
+        mat-card-title {
+            color: #1976d2 !important;
+            font-weight: 600 !important;
+            font-size: 1.2rem !important;
+        }
+        
+        mat-card-subtitle {
+            color: #42a5f5 !important;
+            font-weight: 500 !important;
+        }
+    }
+
+    mat-card-content {
+        color: #37474f !important;
+        line-height: 1.6;
+
+        h3, h4, h5 {
+            color: #1976d2 !important;
+            font-weight: 600 !important;
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        p {
+            margin: 0.5rem 0;
+            color: #546e7a !important;
+        }
+
+        strong {
+            color: #1976d2 !important;
+        }
+    }
+}
+
+// Estilos para elementos de Material Design
+::ng-deep .mat-mdc-dialog-container {
+    background: #ffffff !important;
+    color: #1976d2 !important;
+}
+
+::ng-deep .mat-mdc-dialog-title {
+    color: #1976d2 !important;
+    font-weight: 600 !important;
+    border-bottom: 2px solid #e3f2fd !important;
+    padding-bottom: 1rem !important;
+    margin-bottom: 1rem !important;
+}
+
+::ng-deep .mat-mdc-dialog-actions {
+    border-top: 1px solid #e3f2fd !important;
+    padding-top: 1rem !important;
+
+    button[mat-button] {
+        background: linear-gradient(135deg, #64b5f6, #90caf9) !important;
+        color: white !important;
+        border: 1px solid #64b5f6 !important;
+        border-radius: 8px !important;
+        padding: 8px 16px !important;
+        font-weight: 600 !important;
+        transition: all 0.3s ease !important;
+        margin: 0 4px !important;
+
+        &:hover:not(:disabled) {
+            background: linear-gradient(135deg, #42a5f5, #64b5f6) !important;
+            transform: translateY(-1px) !important;
+            box-shadow: 0 4px 12px rgba(66, 165, 245, 0.3) !important;
+        }
+        
+        &[color="primary"] {
+            background: linear-gradient(135deg, #1976d2, #42a5f5) !important;
+            border-color: #1976d2 !important;
+            
+            &:hover:not(:disabled) {
+                background: linear-gradient(135deg, #0d47a1, #1976d2) !important;
+                box-shadow: 0 4px 12px rgba(66, 165, 245, 0.4) !important;
+            }
+        }
+
+        &[color="warn"] {
+            background: linear-gradient(135deg, #f44336, #e57373) !important;
+            border-color: #f44336 !important;
+            
+            &:hover:not(:disabled) {
+                background: linear-gradient(135deg, #d32f2f, #f44336) !important;
+                box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3) !important;
+            }
+        }
+    }
+
+    button[mat-icon-button] {
+        color: #f44336 !important;
+        border-radius: 50% !important;
+        transition: all 0.3s ease !important;
+        
+        &:hover {
+            background: rgba(244, 67, 54, 0.1) !important;
+            transform: scale(1.1) !important;
+        }
+    }
+}
+
+// Estilos para campos de formulario
+::ng-deep .mat-mdc-form-field {
+    .mdc-text-field--filled .mdc-line-ripple::before {
+        border-bottom-color: #42a5f5 !important;
+    }
+    
+    .mdc-text-field--filled .mdc-line-ripple::after {
+        border-bottom-color: #1976d2 !important;
+    }
+    
+    .mdc-text-field--filled .mdc-floating-label {
+        color: #1976d2 !important;
+    }
+    
+    .mdc-text-field--filled .mdc-text-field__input {
+        border-bottom: 1px solid #42a5f5 !important;
+        color: #37474f !important;
+    }
+    
+    .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__input:focus ~ .mdc-floating-label {
+        color: #1976d2 !important;
+    }
+
+    // Estados de error
+    &.mat-form-field-invalid {
+        .mdc-floating-label {
+            color: #f44336 !important;
+        }
+        
+        .mdc-line-ripple::after {
+            border-bottom-color: #f44336 !important;
+        }
+    }
+}
+
+// Estilos para listas y datos dinámicos
+ul {
+    margin: 1rem 0;
+    padding-left: 0;
+    list-style: none;
+
+    li {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #e3f2fd;
+        
+        &:last-child {
+            border-bottom: none;
+        }
+
+        strong {
+            color: #1976d2 !important;
+            min-width: 120px;
+        }
+
+        span {
+            color: #546e7a !important;
+            flex: 1;
+        }
+    }
+}
+
+// Estilos para secciones de datos
+.section-title {
+    color: #1976d2 !important;
+    font-weight: 600 !important;
+    font-size: 1.1rem !important;
+    margin: 1.5rem 0 1rem 0 !important;
+    padding-bottom: 0.5rem !important;
+    border-bottom: 2px solid #e3f2fd !important;
+}
+
+.data-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f5f5f5;
+
+    .label {
+        color: #1976d2 !important;
+        font-weight: 600 !important;
+        min-width: 140px;
+    }
+
+    .value {
+        color: #546e7a !important;
+        flex: 1;
+    }
+}
+
+// Override para eliminar colores del tema magenta-violet
+::ng-deep {
+    .mat-primary {
+        background-color: #1976d2 !important;
+        color: white !important;
+    }
+
+    .mat-accent {
+        background-color: #42a5f5 !important;
+        color: white !important;
+    }
+
+    // Forzar colores azules en todos los elementos de Material Design
+    .mdc-button--raised.mat-primary,
+    .mdc-button--unelevated.mat-primary {
+        background-color: #1976d2 !important;
+        border-color: #1976d2 !important;
+    }
+
+    .mat-mdc-raised-button.mat-primary,
+    .mat-mdc-unelevated-button.mat-primary {
+        background-color: #1976d2 !important;
+        border-color: #1976d2 !important;
+    }
+
+    .mat-mdc-outlined-button.mat-primary {
+        color: #1976d2 !important;
+        border-color: #1976d2 !important;
+    }
+
+    // Enlaces y texto primary
+    a, .mat-primary-text {
+        color: #1976d2 !important;
+    }
+}

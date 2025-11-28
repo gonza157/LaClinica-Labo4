@@ -1,0 +1,1 @@
+import{db as t}from"./chunk-VNSJBZ2B.js";var i=class e{transform(r){return r?r.charAt(0).toUpperCase()+r.slice(1).toLowerCase():""}static \u0275fac=function(p){return new(p||e)};static \u0275pipe=t({name:"capitalize",type:e,pure:!0})};export{i as a};

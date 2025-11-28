@@ -1,0 +1,126 @@
+:host ::ng-deep .mat-dialog-container {
+  min-width: 340px;
+  max-width: 600px;
+  width: 100%;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #ffffff, #f8fbff);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(25, 118, 210, 0.15);
+  overflow: hidden;
+}
+
+h2[mat-dialog-title] {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1976d2 !important;
+  background: linear-gradient(135deg, #f8fbff, #e3f2fd);
+  margin: -24px -24px 1.2rem -24px;
+  padding: 1rem 1.5rem;
+  text-align: center;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #e3f2fd;
+}
+
+mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  overflow-x: hidden;
+}
+
+textarea[readonly] {
+  background: linear-gradient(135deg, #f8fbff, #e3f2fd);
+  color: #1976d2;
+  border: 2px solid #e3f2fd;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  padding: 1.2rem;
+  width: 100%;
+  resize: none;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.1);
+  font-family: inherit;
+  margin-bottom: 0.5rem;
+  min-height: 120px;
+  outline: none;
+  overflow-x: hidden;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+textarea:not([readonly]) {
+  background: #fff;
+  color: #333;
+  border: 2px solid #64b5f6;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  padding: 1.2rem;
+  width: 100%;
+  resize: vertical;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.1);
+  font-family: inherit;
+  margin-bottom: 0.5rem;
+  min-height: 120px;
+  outline: none;
+
+  &:focus {
+    border-color: #1976d2;
+    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+  }
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+button[mat-button] {
+  font-weight: 600 !important;
+  font-size: 1.05rem !important;
+  border-radius: 8px !important;
+  padding: 0.5rem 1.5rem !important;
+  transition: all 0.3s ease !important;
+
+  // Estilo para botón primario (Aceptar)
+  &[color="primary"] {
+    background: linear-gradient(135deg, #1976d2, #42a5f5) !important;
+    color: white !important;
+    border: 1px solid #1976d2 !important;
+    
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, #0d47a1, #1976d2) !important;
+      transform: translateY(-1px) !important;
+      box-shadow: 0 4px 12px rgba(66, 165, 245, 0.4) !important;
+    }
+  }
+
+  // Estilo para botón secundario (Cancelar)
+  &:not([color="primary"]) {
+    background: linear-gradient(135deg, #64b5f6, #90caf9) !important;
+    color: white !important;
+    border: 1px solid #64b5f6 !important;
+
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, #42a5f5, #64b5f6) !important;
+      transform: translateY(-1px) !important;
+      box-shadow: 0 4px 12px rgba(66, 165, 245, 0.3) !important;
+    }
+  }
+
+  &:disabled {
+    background: #e0e0e0 !important;
+    color: #9e9e9e !important;
+    border-color: #e0e0e0 !important;
+    cursor: not-allowed !important;
+  }
+}
+
+.resena-lectura {
+  box-sizing: border-box; // <-- Asegura que el padding no desborde el ancho
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  white-space: pre-wrap;
+  word-break: break-word;
+}

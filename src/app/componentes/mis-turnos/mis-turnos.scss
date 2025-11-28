@@ -1,0 +1,150 @@
+.mis-turnos-container {
+    background: var(--bg-color);
+    color: var(--text-color);
+    padding: 2rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h2 {
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+    }
+
+    .filtros {
+        display: flex;
+        flex-wrap: wrap; // por si el ancho es muy chico en pantallas pequeñas
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+
+        input {
+            width: 240px;
+            padding: 0.5rem;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+        }
+    }
+
+    .turnos-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 1.5rem;
+        width: 100%;
+        max-width: 1200px;
+    }
+
+    .turno-card {
+        background: var(--card-bg);
+        box-shadow: 0 4px 16px var(--shadow);
+        border-radius: 18px;
+        padding: 1.2rem;
+
+        .turno-fecha {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin: 0.3rem 0;
+        }
+
+        .estado {
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            color: white;
+            font-weight: bold;
+
+            &.pendiente {
+                background-color: #fbc02d;
+            }
+
+            &.aceptado {
+                background-color: #43a047;
+            }
+
+            &.realizado {
+                background-color: #43a047;
+            }
+
+            &.cancelado {
+                background-color: #e53935;
+            }
+
+            &.rechazado {
+                background-color: #e53935;
+            }
+
+            &.finalizado {
+                background-color: #1e88e5;
+            }
+        }
+
+        .acciones {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+
+            button {
+                flex: 1 1 auto;
+                transition: all 0.3s ease;
+            }
+
+            // Estilos específicos para los botones de Material
+            ::ng-deep .mat-mdc-button {
+                background: linear-gradient(135deg, #42a5f5, #64b5f6) !important;
+                color: white !important;
+                border: 1px solid #42a5f5 !important;
+                border-radius: 8px !important;
+                padding: 8px 16px !important;
+                font-weight: 600 !important;
+
+                &:hover:not(:disabled) {
+                    background: linear-gradient(135deg, #1976d2, #42a5f5) !important;
+                    transform: translateY(-1px) !important;
+                    box-shadow: 0 4px 12px rgba(66, 165, 245, 0.3) !important;
+                }
+            }
+        }
+    }
+}
+
+.turnos-previos-toggle {
+    margin: 2rem 0 1rem 0;
+    text-align: center;
+    cursor: pointer;
+
+    .toggle-link {
+        color: #42a5f5;
+        font-weight: 600;
+        font-size: 1.1rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        transition: color 0.2s;
+
+        &:hover {
+            color: #1976d2;
+            text-decoration: underline;
+        }
+    }
+}
+
+.turno-card {
+  transition: 
+    transform 0.22s cubic-bezier(.4,0,.2,1),
+    box-shadow 0.22s cubic-bezier(.4,0,.2,1);
+  will-change: transform, box-shadow;
+  cursor: pointer;
+}
+
+.turno-card:hover {
+  transform: scale(1.035);
+  box-shadow: 0 8px 32px #42a5f533;
+  z-index: 2;
+}

@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>
+    Historial clínico de {{ data.paciente.nombre }} {{ data.paciente.apellido }}
+</h2>
+<mat-dialog-content>
+    <div *ngIf="cargando">Cargando...</div>
+    <div *ngIf="!cargando && historiales.length === 0">
+        No hay historial clínico para este paciente.
+    </div>
+    <mat-accordion *ngIf="historiales.length">
+        <mat-expansion-panel *ngFor="let historia of historiales">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <ng-container *ngIf="!esEspecialista">
+                        {{ historia.fecha | date:'dd/MM/yyyy HH:mm' }} - {{ historia.especialistaNombre }} - {{ historia.especialidad }}
+                    </ng-container>
+                    <ng-template [ngIf]="esEspecialista">
+                        {{ historia.fecha | date:'dd/MM/yyyy HH:mm' }} - {{ historia.especialidad }}
+                    </ng-template>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div><strong>Altura:</strong> {{ historia.altura }} cm</div>
+            <div><strong>Peso:</strong> {{ historia.peso }} kg</div>
+            <div><strong>Temperatura:</strong> {{ historia.temperatura }} °C</div>
+            <div><strong>Presión:</strong> {{ historia.presion }}</div>
+            <div *ngIf="historia.dinamicos?.length">
+                <strong>Datos adicionales:</strong>
+                <ul>
+                    <li *ngFor="let d of historia.dinamicos">
+                        <strong>{{ d.clave }}:</strong> {{ d.valor }}
+                    </li>
+                </ul>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button (click)="cerrar()">Cerrar</button>
+</mat-dialog-actions>

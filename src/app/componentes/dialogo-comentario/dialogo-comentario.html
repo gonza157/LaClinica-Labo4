@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>{{ data.titulo }}</h2>
+
+<mat-dialog-content>
+    <div *ngIf="soloLectura; else editable" class="resena-lectura">{{ comentario }}</div>
+    <ng-template #editable>
+        <textarea [(ngModel)]="comentario" rows="4" style="width:100%" [readonly]="soloLectura"></textarea>
+    </ng-template>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button *ngIf="soloLectura" mat-button mat-dialog-close>Cerrar</button>
+    <ng-container *ngIf="!soloLectura">
+        <button mat-button (click)="dialogRef.close()">Cancelar</button>
+        <button mat-button color="primary" [disabled]="!comentario.trim()" (click)="dialogRef.close(comentario)">
+            Aceptar
+        </button>
+    </ng-container>
+</mat-dialog-actions>

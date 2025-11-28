@@ -1,0 +1,107 @@
+<!--
+<div class="tipo-selector">
+  <button mat-raised-button [ngClass]="{ selected: tipoUsuario() === 'paciente' }" (click)="onTipoChange('paciente')">
+    👤 Paciente
+  </button>
+  <button mat-raised-button [ngClass]="{ selected: tipoUsuario() === 'especialista' }"
+    (click)="onTipoChange('especialista')">
+    🩺 Especialista
+  </button>
+  <button *ngIf="isAdmin()" mat-raised-button [ngClass]="{ selected: tipoUsuario() === 'admin' }"
+    (click)="onTipoChange('admin')">
+    🛠️ Administrador
+  </button>
+</div>
+-->
+
+<div class="tipo-selector-vertical" *ngIf="!tipoUsuario()">
+  <button mat-raised-button class="tipo-btn-rect" (click)="onTipoChange('paciente')">
+    <img src="assets/paciente.jpg" alt="Paciente" class="tipo-img-rect" />
+  </button>
+  <button mat-raised-button class="tipo-btn-rect" (click)="onTipoChange('especialista')">
+    <img src="assets/especialista.jpg" alt="Especialista" class="tipo-img-rect" />
+  </button>
+  <button *ngIf="isAdmin()" mat-raised-button class="tipo-btn-rect" (click)="onTipoChange('admin')">
+    <img src="assets/admin.jpg" alt="Admin" class="tipo-img-rect" />
+  </button>
+</div>
+
+
+<mat-card class="form-card" *ngIf="tipoUsuario()">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-grid">
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre" appAutofoco placeholder="Nombre">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Apellido</mat-label>
+      <input matInput formControlName="apellido" appResaltar="lightyellow" placeholder="Apellido">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Edad</mat-label>
+      <input matInput type="number" formControlName="edad" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>DNI</mat-label>
+      <input matInput formControlName="dni" appSoloNumeros placeholder="DNI (solo números)">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" *ngIf="tipoUsuario() === 'paciente'">
+      <mat-label>Obra Social</mat-label>
+      <input matInput formControlName="obraSocial" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" *ngIf="tipoUsuario() === 'especialista'">
+      <mat-label>Especialidades</mat-label>
+      <mat-select formControlName="especialidad" multiple (selectionChange)="onEspecialidadChange($event.value)">
+        <mat-option *ngFor="let esp of especialidades" [value]="esp">{{ esp }}</mat-option>
+        <mat-option value="otra">Agregar nueva especialidad...</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Campo para ingresar nuevas especialidades -->
+    <mat-form-field appearance="fill" *ngIf="mostrarOtraEspecialidad">
+      <mat-label>Nuevas especialidades (separadas por coma)</mat-label>
+      <input matInput [(ngModel)]="nuevasEspecialidades" name="nuevasEspecialidades"
+        [ngModelOptions]="{ standalone: true }" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Contraseña</mat-label>
+      <input matInput type="password" formControlName="password" />
+    </mat-form-field>
+
+    <div class="file-group">
+      <div class="file-upload">
+        <label for="imagen1" class="custom-file-btn">📁 Subir imagen de perfil</label>
+        <input type="file" id="imagen1" (change)="onFileChange($event, 'imagen1')" hidden>
+        <span *ngIf="fileName1">{{ fileName1 }}</span>
+      </div>
+
+      <div class="file-upload" *ngIf="tipoUsuario() === 'paciente'">
+        <label for="imagen2" class="custom-file-btn">📁 Subir segunda imagen de perfil </label>
+  <input type="file" id="imagen2" (change)="onFileChange($event, 'imagen2')" hidden>
+        <span *ngIf="fileName2">{{ fileName2 }}</span>
+      </div>
+    </div>
+
+  <div #captchaElem class="g-recaptcha" data-sitekey="6Le1WxcsAAAAABw-YqhQfj_y2b0DHmIXJt_RP55Q"></div>
+
+    <div class="submit-area">
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || loading"><!--Ingresar-->
+        <ng-container *ngIf="!loading">Registrar</ng-container>
+        <ng-container *ngIf="loading">
+          <mat-spinner [diameter]="24"></mat-spinner>
+        </ng-container>
+      </button>
+    </div>
+  </form>
+</mat-card>

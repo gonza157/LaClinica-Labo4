@@ -1,0 +1,202 @@
+.mi-perfil-container {
+  background: var(--bg-color);
+  color: var(--text-color);
+  padding: 0rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-main-container {
+  background: var(--bg-color);
+  color: var(--text-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.login-container {
+  margin-top: 2rem;
+}
+
+.quick-access {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+  justify-items: center;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .quick-access {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+  
+  .quick-user-btn {
+    width: 150px;
+    height: 70px;
+    gap: 0.5rem;
+    
+    img {
+      width: 45px;
+      height: 45px;
+    }
+    
+    span {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .quick-access {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 1fr);
+  }
+  
+  .quick-user-btn {
+    width: 200px;
+    height: 60px;
+  }
+}
+
+.login-card {
+  max-width: 420px;
+  width: 100%;
+  background: var(--card-bg);
+  box-shadow: 0 8px 20px var(--shadow);
+  border-radius: 20px;
+  padding: 2rem 2rem;
+  color: var(--text-color);
+  text-align: center;
+
+  h2 {
+    margin-bottom: 1.5rem;
+    color: #1976d2;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    align-items: stretch;
+
+    label {
+      text-align: left;
+      margin-bottom: 0.2rem;
+      color: var(--text-color, #222);
+      font-weight: 500;
+    }
+
+    .login-button {
+      background: linear-gradient(135deg, #1976d2, #42a5f5) !important;
+      color: white !important;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(25, 118, 210, 0.3);
+
+      &:hover:not(:disabled) {
+        background: linear-gradient(135deg, #1565c0, #1e88e5) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(25, 118, 210, 0.4);
+      }
+
+      &:disabled {
+        background: #ccc !important;
+        transform: none;
+        box-shadow: none;
+      }
+    }
+
+    mat-form-field {
+      .mat-mdc-form-field-focus-overlay {
+        background: rgba(25, 118, 210, 0.12) !important;
+      }
+
+      .mat-mdc-text-field-wrapper {
+        &.mdc-text-field--focused {
+          .mdc-notched-outline {
+            border-color: #1976d2 !important;
+          }
+        }
+      }
+
+      .mat-mdc-form-field-label {
+        color: #666 !important;
+      }
+
+      &.mat-focused .mat-mdc-form-field-label {
+        color: #1976d2 !important;
+      }
+    }
+  }
+}
+
+.loader {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: var(--text-color);
+}
+
+.quick-access {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1rem;
+  margin-right: 3rem;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+
+.quick-user-btn {
+  width: 180px;
+  height: 80px;
+  background: var(--card-bg);
+  border: 2px solid #1976d2;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+  transition: box-shadow 0.2s, border 0.2s;
+  box-shadow: 0 2px 8px #0002;
+  padding: 0.5rem;
+
+  img {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  span {
+    font-size: 0.9rem;
+    color: #1976d2;
+    font-weight: 600;
+    text-align: left;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(25, 118, 210, 0.3);
+    border: 2.5px solid #1565c0;
+    background: #e3f2fd;
+  }
+}

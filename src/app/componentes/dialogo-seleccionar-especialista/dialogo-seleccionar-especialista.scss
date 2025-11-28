@@ -1,0 +1,55 @@
+// Diálogo seleccionar especialista con tema azul elegante
+:host ::ng-deep {
+  .mat-mdc-dialog-container {
+    background: linear-gradient(135deg, #fff, #f8fbff);
+    border-radius: 16px;
+    min-width: 400px;
+    box-shadow: 0 8px 32px rgba(25, 118, 210, 0.15);
+    overflow: hidden;
+  }
+  
+  .mat-mdc-dialog-content {
+    overflow-x: hidden !important;
+    padding: 0 24px 24px 24px !important;
+  }
+  
+  button[mat-button] {
+    border-radius: 8px !important;
+    padding: 12px 24px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    margin: 4px !important;
+    
+    &[color="primary"] {
+      background: linear-gradient(135deg, #1976d2, #42a5f5) !important;
+      color: white !important;
+      box-shadow: 0 3px 12px rgba(25, 118, 210, 0.3) !important;
+      
+      &:hover {
+        transform: translateY(-1px) !important;
+        box-shadow: 0 4px 16px rgba(25, 118, 210, 0.4) !important;
+      }
+    }
+    
+    &:not([color="primary"]) {
+      background: linear-gradient(135deg, #64b5f6, #90caf9) !important;
+      color: white !important;
+      box-shadow: 0 3px 12px rgba(66, 165, 245, 0.3) !important;
+      
+      &:hover {
+        transform: translateY(-1px) !important;
+        box-shadow: 0 4px 16px rgba(66, 165, 245, 0.4) !important;
+      }
+    }
+  }
+}
+
+h2[mat-dialog-title] {
+  color: #1976d2 !important;
+  background: linear-gradient(135deg, #f8fbff, #e3f2fd);
+  margin: -24px -24px 20px -24px;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 2px solid #e3f2fd;
+  font-weight: 600;
+}

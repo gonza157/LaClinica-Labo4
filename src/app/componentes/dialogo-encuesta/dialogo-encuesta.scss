@@ -1,0 +1,98 @@
+// Encuesta con tema azul - Optimizada pero elegante
+:host ::ng-deep {
+  .mat-mdc-dialog-container {
+    background: linear-gradient(135deg, #fff, #f8fbff);
+    border-radius: 16px;
+    min-width: 400px;
+    max-width: 500px !important;
+    overflow: hidden !important;
+  }
+  
+  .mat-mdc-dialog-content {
+    overflow-x: hidden !important;
+    padding: 0 24px 24px 24px !important;
+  }
+  
+  // Radio buttons - azul elegante
+  .mat-radio-button {
+    .mat-radio-outer-circle {
+      border-color: #90caf9 !important;
+      background: white !important;
+      border-width: 2px !important;
+    }
+    
+    .mat-radio-inner-circle {
+      background: transparent !important;
+      transform: scale(0) !important;
+    }
+    
+    &.mat-radio-checked {
+      .mat-radio-outer-circle {
+        border-color: #1976d2 !important;
+      }
+      
+      .mat-radio-inner-circle {
+        background: #1976d2 !important;
+        transform: scale(0.5) !important;
+      }
+    }
+  }
+  
+  // Botones elegantes
+  button[mat-button] {
+    border-radius: 8px !important;
+    padding: 12px 24px !important;
+    
+    &[color="primary"] {
+      background: linear-gradient(135deg, #1976d2, #42a5f5) !important;
+      color: white !important;
+      box-shadow: 0 3px 12px rgba(25, 118, 210, 0.3) !important;
+    }
+  }
+  
+  ::-webkit-scrollbar { 
+    width: 0px !important; 
+  }
+}
+
+h2[mat-dialog-title] {
+  color: #1976d2 !important;
+  background: linear-gradient(135deg, #f8fbff, #e3f2fd);
+  margin: -24px -24px 20px -24px;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 2px solid #e3f2fd;
+  font-weight: 600;
+}
+
+label {
+  color: #1976d2;
+  font-weight: 600;
+  margin-bottom: 12px;
+  display: block;
+}
+
+mat-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+textarea {
+  width: 100% !important;
+  padding: 12px !important;
+  border: 2px solid #90caf9 !important;
+  border-radius: 8px !important;
+  color: #333 !important;
+  font-family: inherit;
+  margin: 0 auto !important;
+  display: block !important;
+  box-sizing: border-box !important;
+  
+  &:focus {
+    border-color: #1976d2 !important;
+    outline: none !important;
+    box-shadow: 0 0 8px rgba(25, 118, 210, 0.2) !important;
+  }
+}

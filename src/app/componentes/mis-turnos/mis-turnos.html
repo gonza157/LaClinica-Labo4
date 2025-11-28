@@ -1,0 +1,100 @@
+<div class="mis-turnos-container">
+  <h2>{{ rol === 'admin' ? 'Turnos' : 'Mis Turnos' }}</h2>
+
+  <!-- Filtros -->
+  <div class="filtros">
+    <ng-container *ngIf="rol === 'paciente'">
+      <input type="text" [(ngModel)]="filtroGlobal" placeholder="Buscar..." />
+    </ng-container>
+    <ng-container *ngIf="rol === 'especialista'">
+      <input type="text" [(ngModel)]="filtroGlobal" placeholder="Buscar..." />
+    </ng-container>
+    <ng-container *ngIf="rol === 'admin'">
+      <input type="text" [(ngModel)]="filtroGlobal" placeholder="Buscar..." />
+    </ng-container>
+  </div>
+
+  <!-- Lista de turnos en cards -->
+  <div class="turnos-list">
+    <mat-card *ngFor="let turno of turnosActuales" class="turno-card">
+      <mat-card-title class="turno-fecha">
+        {{ turno.fecha.split(' ')[0] | date:'dd/MM/yyyy' }} {{ turno.fecha.split(' ')[1] }}
+      </mat-card-title>
+      <mat-card-content>
+        <p><strong>Especialidad:</strong> {{ turno.especialidad }}</p>
+        <p *ngIf="rol !== 'especialista'"><strong>Especialista:</strong> {{ turno.especialistaNombre }}</p>
+        <p *ngIf="rol !== 'paciente'"><strong>Paciente:</strong> {{ turno.pacienteNombre }}</p>
+        <p><strong>Estado: </strong>
+          <span class="estado" [ngClass]="turno.estado">{{ turno.estado }}</span>
+        </p>
+      </mat-card-content>
+      <mat-card-actions class="acciones">
+        <!-- PACIENTE -->
+        <button mat-button *ngIf="puedeCancelarPaciente(turno)" (click)="cancelarTurno(turno)">Cancelar</button>
+        <button mat-button *ngIf="puedeVerResena(turno)" (click)="verResena(turno)">Ver Reseña</button>
+        <button mat-button *ngIf="puedeCompletarEncuesta(turno)" (click)="completarEncuesta(turno)">Encuesta</button>
+        <button mat-button *ngIf="puedeCalificar(turno)" (click)="calificarAtencion(turno)">Calificar</button>
+
+        <!-- ESPECIALISTA -->
+        <button mat-button *ngIf="puedeCancelarEspecialista(turno)" (click)="cancelarTurno(turno)">Cancelar</button>
+        <button mat-button *ngIf="puedeRechazar(turno)" (click)="rechazarTurno(turno)">Rechazar</button>
+        <button mat-button *ngIf="puedeAceptar(turno)" (click)="aceptarTurno(turno)">Aceptar</button>
+        <button mat-button *ngIf="puedeFinalizar(turno)" (click)="finalizarTurno(turno)">Finalizar</button>
+        <button mat-button *ngIf="puedeCargarHistoriaClinica(turno)" (click)="cargarHistoriaClinica(turno)">Historia
+          Clínica</button>
+
+        <!-- ADMIN -->
+        <button mat-button *ngIf="puedeCancelarAdmin(turno)" (click)="cancelarTurno(turno)">Cancelar</button>
+
+        <!-- COMUNES -->
+        <button mat-button *ngIf="puedeVerHistoriaClinica(turno)" (click)="verHistoriaClinica(turno)">Ver Historia Clínica</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <!-- Botón para mostrar/ocultar previos -->
+  <div class="turnos-previos-toggle" (click)="mostrarPrevios = !mostrarPrevios">
+    <span class="toggle-link">
+      Turnos previos
+      <mat-icon>{{ mostrarPrevios ? 'expand_less' : 'expand_more' }}</mat-icon>
+    </span>
+  </div>
+
+  <!-- Turnos previos (colapsable) -->
+  <div class="turnos-list" *ngIf="mostrarPrevios">
+    <mat-card *ngFor="let turno of turnosPrevios" class="turno-card">
+      <mat-card-title class="turno-fecha">
+        {{ turno.fecha.split(' ')[0] | date:'dd/MM/yyyy' }} {{ turno.fecha.split(' ')[1] }}
+      </mat-card-title>
+      <mat-card-content>
+        <p><strong>Especialidad:</strong> {{ turno.especialidad }}</p>
+        <p *ngIf="rol !== 'especialista'"><strong>Especialista:</strong> {{ turno.especialistaNombre }}</p>
+        <p *ngIf="rol !== 'paciente'"><strong>Paciente:</strong> {{ turno.pacienteNombre }}</p>
+        <p><strong>Estado: </strong>
+          <span class="estado" [ngClass]="turno.estado">{{ turno.estado }}</span>
+        </p>
+      </mat-card-content>
+      <mat-card-actions class="acciones">
+        <!-- PACIENTE -->
+        <button mat-button *ngIf="puedeCancelarPaciente(turno)" (click)="cancelarTurno(turno)">Cancelar</button>
+        <button mat-button *ngIf="puedeVerResena(turno)" (click)="verResena(turno)">Ver Reseña</button>
+        <button mat-button *ngIf="puedeCompletarEncuesta(turno)" (click)="completarEncuesta(turno)">Encuesta</button>
+        <button mat-button *ngIf="puedeCalificar(turno)" (click)="calificarAtencion(turno)">Calificar</button>
+
+        <!-- ESPECIALISTA -->
+        <button mat-button *ngIf="puedeCancelarEspecialista(turno)" (click)="cancelarTurno(turno)">Cancelar</button>
+        <button mat-button *ngIf="puedeRechazar(turno)" (click)="rechazarTurno(turno)">Rechazar</button>
+        <button mat-button *ngIf="puedeAceptar(turno)" (click)="aceptarTurno(turno)">Aceptar</button>
+        <button mat-button *ngIf="puedeFinalizar(turno)" (click)="finalizarTurno(turno)">Finalizar</button>
+        <button mat-button *ngIf="puedeCargarHistoriaClinica(turno)" (click)="cargarHistoriaClinica(turno)">Historia
+          Clínica</button>
+
+        <!-- ADMIN -->
+        <button mat-button *ngIf="puedeCancelarAdmin(turno)" (click)="cancelarTurno(turno)">Cancelar</button>
+
+        <!-- COMUNES -->
+        <!--<button mat-button *ngIf="puedeVerHistoriaClinica(turno)" (click)="verHistoriaClinica(turno)">Ver Historia Clínica</button>-->
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

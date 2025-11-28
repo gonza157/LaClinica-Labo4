@@ -1,0 +1,72 @@
+<div @fadeIn>
+    <div class="solicitar-turno-main-container">
+        <mat-card class="solicitar-turno-card">
+            <h2>Solicitar Turno</h2>
+
+            <form (ngSubmit)="solicitarTurno()">
+
+                <div *ngIf="rol === 'admin'">
+                    <label class="label-section">Pacientes</label>
+                    <div class="pacientes-grid">
+                        <button type="button" *ngFor="let pac of pacientes" class="paciente-btn"
+                            [class.selected]="selectedPaciente?.uid === pac.uid" (click)="selectedPaciente = pac">
+                            <img [src]="pac.imagen1 || 'assets/paciente.jpg'" alt="Foto de {{pac.nombre}}" />
+                            <span>{{ pac.nombre }} {{ pac.apellido }}</span>
+                        </button>
+                    </div>
+                </div>
+
+                <label>Especialistas</label>
+                
+                <!-- Mensaje cuando no hay especialistas -->
+                <div *ngIf="especialistasFiltrados.length === 0" style="text-align: center; padding: 20px; color: #666;">
+                    <p>No hay especialistas disponibles en este momento.</p>
+                    <p><small>Verifica que haya especialistas aprobados en el sistema.</small></p>
+                </div>
+                
+                <div class="especialistas-grid" *ngIf="especialistasFiltrados.length > 0">
+                    <button type="button" *ngFor="let esp of especialistasFiltrados" class="especialista-btn"
+                        [class.selected]="selectedEspecialista?.uid === esp.uid"
+                        (click)="selectedEspecialista = esp; onEspecialistaChange()">
+                        <img [src]=" esp.imagen1 || 'assets/especialista.jpg'" alt="Foto de {{esp.nombre}}" />
+                        <span>{{ esp.nombre }} {{ esp.apellido }}</span>
+                    </button>
+                </div>
+
+                <!-- Especialidades del especialista seleccionado -->
+                <div *ngIf="selectedEspecialista" class="especialidad-row">
+                    <label class="label-section">Especialidades</label>
+                    <div class="especialidades-grid">
+                        <div class="especialidad-btn-container" *ngFor="let esp of especialidadesDelEspecialista">
+                            <span class="especialidad-nombre">{{ esp.nombre }}</span>
+                            <button type="button" class="especialidad-btn"
+                                [class.selected]="selectedEspecialidad === esp.nombre"
+                                (click)="selectedEspecialidad = esp.nombre; onEspecialidadChange()">
+                                <img [src]="esp.imagen ? esp.imagen : 'assets/especialidad-default.png'"
+                                    alt="Imagen de {{esp.nombre}}" />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Solo muestra el label y los horarios si hay especialista y especialidad seleccionados -->
+                <div *ngIf="selectedEspecialista && selectedEspecialidad">
+                    <label class="label-section">Días y horarios:</label>
+                    <div class="horarios-disponibles">
+                        <ng-container *ngFor="let fecha of fechasDisponibles">
+                            <button type="button" *ngFor="let hora of getHorariosParaFecha(fecha)"
+                                [class.selected]="selectedFecha === fecha && selectedHora === hora"
+                                [class.disabled]="horariosOcupadosPorDia[fecha].includes(hora)"
+                                [disabled]="horariosOcupadosPorDia[fecha].includes(hora)"
+                                (click)="selectedFecha = fecha; selectedHora = hora">
+                                {{ fecha }} {{ formatearHoraAMPM(hora) }}
+                            </button>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-solicitar">Solicitar Turno</button>
+            </form>
+        </mat-card>
+    </div>
+</div>

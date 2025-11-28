@@ -1,0 +1,63 @@
+<div class="admin-usuarios-container">
+  <h2>Gestión de Usuarios</h2>
+  <button mat-raised-button class="excel-button" (click)="descargarExcel()">
+    Descargar Excel de Usuarios
+  </button>
+  <div class="usuarios-lista">
+    <div class="usuario-card" *ngFor="let user of (usuarios$ | async) || []">
+      <div class="usuario-header">
+        <img *ngIf="user.imagen1" [src]="user.imagen1" alt="Foto de perfil" class="usuario-avatar" />
+        <div class="usuario-nombre-fav">
+          <div class="nombre-fav-row">
+            <span class="nombre">{{ user.nombre | capitalize }} {{ user.apellido | capitalize }}</span>
+            <button mat-icon-button color="warn" (click)="toggleFavorito(user)" [attr.aria-label]="'Favorito'">
+              <mat-icon>{{ user.favorito ? 'favorite' : 'favorite_border' }}</mat-icon>
+            </button>
+          </div>
+          <span class="email-label">Email:</span>
+          <span class="email-value">{{ user.email }}</span>
+        </div>
+      </div>
+
+      <!-- DNI formateado -->
+      <p><strong>DNI:</strong> {{ user.dni | dniFormat }}</p>
+      <p><strong>Rol:</strong> {{ user.rol | rolLegible }}</p>
+      <p *ngIf="user.rol === 'especialista'"><strong>Aprobado:</strong> {{ user.aprobado ? 'Sí' : 'No' }}</p>
+
+      <div class="acciones">
+        <ng-container *ngIf="user.rol === 'especialista'">
+          <button mat-raised-button color="primary" *ngIf="!user.aprobado"
+            appConfirmarAccion="¿Está seguro de habilitar a este especialista?"
+            confirmarTitulo="Habilitar Especialista"
+            (accionConfirmada)="cambiarEstadoEspecialista(user.uid, true)"
+            appResaltarHover="#4caf50">Habilitar</button>
+          <button mat-raised-button color="warn" *ngIf="user.aprobado"
+            appConfirmarAccion="¿Está seguro de inhabilitar a este especialista?"
+            confirmarTitulo="Inhabilitar Especialista"
+            (accionConfirmada)="cambiarEstadoEspecialista(user.uid, false)"
+            appResaltarHover="#f44336">Inhabilitar</button>
+        </ng-container>
+        <ng-container *ngIf="user.rol === 'paciente'">
+          <button mat-raised-button color="primary" 
+            (click)="verHistorialClinico(user)"
+            appResaltarHover="#1976d2">
+            Ver Historial Clínico
+          </button>
+        </ng-container>
+        <ng-container *ngIf="user.rol !== 'admin'">
+          <button mat-raised-button color="accent" 
+            (click)="descargarTurnosPDF(user)"
+            appResaltarHover="#ff5722">
+            Descargar Turnos PDF
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <button class="botonRegistrar" mat-raised-button color="primary" [routerLink]="['/register']">
+    Crear nuevo usuario
+  </button>
+  <button class="botonRegistrar" mat-raised-button color="primary" [routerLink]="['/admin/informes']">
+    Informes
+  </button>
+</div>

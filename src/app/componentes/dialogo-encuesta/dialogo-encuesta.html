@@ -1,0 +1,32 @@
+<h2 mat-dialog-title>Encuesta de atención</h2>
+<mat-dialog-content>
+  <div *ngIf="paso() === 1">
+    <label>¿Cómo calificaría la atención recibida?</label>
+    <mat-radio-group [(ngModel)]="respuestas().calificacion">
+      <mat-radio-button *ngFor="let n of [1,2,3,4,5]" [value]="n">{{n}} estrella{{n>1?'s':''}}</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div *ngIf="paso() === 2">
+    <label>¿El especialista respondió todas sus dudas?</label>
+    <mat-radio-group [(ngModel)]="respuestas().dudasResueltas">
+      <mat-radio-button value="Sí">Sí</mat-radio-button>
+      <mat-radio-button value="No">No</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div *ngIf="paso() === 3">
+    <label>¿Recomendaría este servicio?</label>
+    <mat-radio-group [(ngModel)]="respuestas().recomendacion">
+      <mat-radio-button value="Sí">Sí</mat-radio-button>
+      <mat-radio-button value="No">No</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div *ngIf="paso() === 4">
+    <label>Comentarios adicionales</label>
+    <textarea [(ngModel)]="respuestas().comentario" rows="3" style="width:100%"></textarea>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button *ngIf="paso() > 1" (click)="anterior()">Anterior</button>
+  <button mat-button *ngIf="paso() < 4" [disabled]="!respuestasValida()" (click)="siguiente()">Siguiente</button>
+  <button mat-button color="primary" *ngIf="paso() === 4" (click)="finalizar()">Finalizar</button>
+</mat-dialog-actions>

@@ -1,0 +1,81 @@
+.home-container {
+  background: url('/assets/clinica.jpg') no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  color: var(--text-color);
+}
+
+.home-card {
+  background: var(--card-bg);
+  color: var(--text-color);
+  padding: 2rem;
+  border-radius: 20px;
+  max-width: 600px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 8px 16px var(--shadow);
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+.btn-group {
+  margin-top: 2rem;
+
+  button {
+    margin: 0.5rem;
+    border-radius: 50px;
+    padding: 0.5rem 2rem;
+  }
+
+  button[color="primary"] {
+    background-color: var(--button-bg);
+    color: #fff;
+  }
+
+  button[color="accent"] {
+    background-color: var(--button-accent);
+    color: #fff;
+  }
+}
+
+
+/* 🎯 Media Query para pantallas chicas (móviles) */
+@media (max-width: 600px) {
+  .home-card {
+    padding: 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .btn-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    button {
+      width: 100%;
+      max-width: 250px;
+      margin-bottom: 1rem;
+    }
+  }
+}

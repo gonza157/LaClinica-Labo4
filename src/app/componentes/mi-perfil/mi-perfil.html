@@ -1,0 +1,72 @@
+<div class="mi-perfil-container">
+  <mat-card class="perfil-card">
+    <mat-card-header class="perfil-header">
+      <div class="perfil-avatar" (click)="alternarImagen()" style="cursor:pointer;">
+        <img *ngIf="mostrarPrimeraImagen; else segundaImagen" [src]="user?.imagen1" alt="Imagen de perfil" />
+        <ng-template #segundaImagen>
+          <img [src]="user?.imagen2" alt="Imagen secundaria" />
+        </ng-template>
+      </div>
+      <div class="perfil-titulos">
+        <mat-card-title>{{ user?.nombre | capitalize }} {{ user?.apellido | capitalize}}</mat-card-title>
+        <mat-card-subtitle>{{ user?.rol | titlecase }}</mat-card-subtitle>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="perfil-datos">
+        <p><strong>Email:</strong> {{ user?.email }}</p>
+        
+        <ng-container *ngIf="user?.rol === 'paciente'">
+          <p><strong>DNI:</strong> {{ user?.dni }}</p>
+          <p><strong>Edad:</strong> {{ calcularEdad(user?.fechaNacimiento) }} años</p>
+          <p><strong>Fecha de Nacimiento:</strong> {{ user?.fechaNacimiento | date:'dd/MM/yyyy' }}</p>
+          <p><strong>Obra Social:</strong> {{ user?.obraSocial }}</p>
+          
+          <div class="acciones">
+            <button mat-raised-button color="primary" (click)="verHistorialClinico()">Ver Historial Clínico</button>
+            <button mat-raised-button color="accent" (click)="descargarHistorialPDF()">Descargar Historia Clínica (PDF)</button>
+          </div>
+        </ng-container>
+        
+        <ng-container *ngIf="user?.rol === 'especialista'">
+          <p><strong>DNI:</strong> {{ user?.dni }}</p>
+          <p><strong>Edad:</strong> {{ calcularEdad(user?.fechaNacimiento) }} años</p>
+          <p><strong>Fecha de Nacimiento:</strong> {{ user?.fechaNacimiento | date:'dd/MM/yyyy' }}</p>
+          <p><strong>Especialidades:</strong> {{ especialidades.join(', ') }}</p>
+          <p *ngIf="user?.verificado"><strong>Estado:</strong> <span style="color: green;">✓ Verificado</span></p>
+          <p *ngIf="!user?.verificado"><strong>Estado:</strong> <span style="color: red;">⚠ Pendiente de verificación</span></p>
+        </ng-container>
+        
+        <ng-container *ngIf="user?.rol === 'admin'">
+          <p><strong>DNI:</strong> {{ user?.dni }}</p>
+          <p><strong>Edad:</strong> {{ calcularEdad(user?.fechaNacimiento) }} años</p>
+          <p><strong>Fecha de Nacimiento:</strong> {{ user?.fechaNacimiento | date:'dd/MM/yyyy' }}</p>
+          <p><strong>Rol:</strong> <span style="color: blue; font-weight: bold;">Administrador</span></p>
+        </ng-container>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <div *ngIf="user?.rol === 'especialista'" class="mis-horarios">
+    <h3>Mis Horarios</h3>
+    <form (ngSubmit)="guardarHorarios()">
+      <div *ngFor="let esp of especialidades">
+        <h4>{{ esp }}</h4>
+        <table>
+          <tr>
+            <th></th>
+            <th *ngFor="let hora of horas">{{ hora }}</th>
+          </tr>
+          <tr *ngFor="let dia of dias">
+            <td>{{ dia }}</td>
+            <td *ngFor="let hora of horas">
+              <input type="checkbox" [checked]="tieneHorario(esp, dia, hora)"
+                (change)="toggleHorario(esp, dia, hora)" />
+            </td>
+          </tr>
+        </table>
+      </div>
+      <button type="submit">Guardar Horarios</button>
+    </form>
+  </div>
+</div>

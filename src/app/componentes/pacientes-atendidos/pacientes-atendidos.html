@@ -1,0 +1,161 @@
+<!-- 
+<div class="pacientes-atendidos-container">
+    <h2>Pacientes Atendidos</h2>
+    <div *ngIf="cargando">Cargando...</div>
+    <div *ngIf="!cargando && pacientes.length === 0">No has atendido pacientes aún.</div>
+    <div class="pacientes-lista" *ngIf="pacientes.length">
+        <mat-card class="paciente-card" *ngFor="let paciente of pacientes">
+            <div class="paciente-header">
+                <img *ngIf="paciente.imagen1" [src]="paciente.imagen1" alt="Foto de perfil" class="paciente-avatar" />
+                <div class="paciente-nombre">
+                    <h3>{{ paciente.nombre }} {{ paciente.apellido }}</h3>
+                    <p><strong>Email:</strong> {{ paciente.email }}</p>
+                </div>
+            </div>
+            <p><strong>Edad:</strong> {{ paciente.edad }}</p>
+            <p><strong>DNI:</strong> {{ paciente.dni }}</p>
+            <p><strong>Obra Social:</strong> {{ paciente.obraSocial }}</p>
+            <div class="acciones">
+                <button mat-raised-button color="primary" (click)="verHistorialClinico(paciente)">
+                    Ver Historial Clínico
+                </button>
+            </div>
+        </mat-card>
+    </div>
+</div>
+-->
+
+<div class="pacientes-atendidos-container">
+    <h2>Pacientes Atendidos</h2>
+    <div *ngIf="cargando">Cargando...</div>
+    <div *ngIf="!cargando && pacientes.length === 0">No has atendido pacientes aún.</div>
+    <div class="pacientes-lista" *ngIf="pacientes.length">
+        <mat-card class="paciente-card" 
+                  *ngFor="let paciente of pacientes"
+                  [class.selected]="pacienteSeleccionado?.uid === paciente.uid"
+                  (click)="seleccionarPaciente(paciente)">
+            <div class="paciente-header">
+                <div class="avatar-container">
+                    <img [src]="paciente.imagen1 || 'assets/paciente.jpg'" 
+                         alt="Foto de perfil" 
+                         class="paciente-avatar" />
+                    <button mat-fab 
+                            color="accent" 
+                            class="favorite-button"
+                            (click)="toggleFavorito(paciente, $event)">
+                        <mat-icon>{{ paciente.favorito ? 'favorite' : 'favorite_border' }}</mat-icon>
+                    </button>
+                </div>
+                <div class="paciente-info">
+                    <h3>{{ paciente.nombre | capitalize }} {{ paciente.apellido | capitalize  }}</h3>
+                    <p class="paciente-email">{{ paciente.email }}</p>
+                    <div class="paciente-stats">
+                        <span class="consultas-count">
+                            <mat-icon>event</mat-icon>
+                            {{ getConsultasCount(paciente.uid) }} consulta{{ getConsultasCount(paciente.uid) !== 1 ? 's' : '' }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+    
+    <!-- Sección de turnos del paciente seleccionado -->
+    <div *ngIf="pacienteSeleccionado" class="turnos-section">
+        <div class="turnos-header">
+            <h3>Historial de Turnos - {{ pacienteSeleccionado.nombre | capitalize }} {{ pacienteSeleccionado.apellido | capitalize }}</h3>
+            <p class="turnos-count">Total: {{ turnosPacienteSeleccionado.length }} turno(s)</p>
+        </div>
+        
+        <div *ngIf="turnosPacienteSeleccionado.length === 0" class="no-turnos">
+            <mat-icon>event_busy</mat-icon>
+            <p>No hay turnos registrados para este paciente</p>
+        </div>
+        
+        <div *ngIf="turnosPacienteSeleccionado.length > 0" class="turnos-table-container">
+            <table class="turnos-table">
+                <thead>
+                    <tr>
+                        <th class="fecha-col">
+                            <mat-icon>schedule</mat-icon>
+                            Fecha & Hora
+                        </th>
+                        <th class="especialidad-col">
+                            <mat-icon>medical_services</mat-icon>
+                            Especialidad
+                        </th>
+                        <th class="estado-col">
+                            <mat-icon>info</mat-icon>
+                            Estado
+                        </th>
+                        <th class="resena-col">
+                            <mat-icon>rate_review</mat-icon>
+                            Reseña
+                        </th>
+                        <th class="historial-col">
+                            <mat-icon>assignment</mat-icon>
+                            Historia Clínica
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let turno of turnosPacienteSeleccionado; let i = index" 
+                        class="turno-row"
+                        [class.row-even]="i % 2 === 0"
+                        [class.row-odd]="i % 2 === 1">
+                        
+                        <td class="fecha-cell">
+                            <div class="fecha-info">
+                                <span class="fecha-day">{{ turno.fecha | date:'dd/MM/yyyy' }}</span>
+                                <span class="fecha-time">{{ turno.fecha | date:'HH:mm' }}hs</span>
+                            </div>
+                        </td>
+                        
+                        <td class="especialidad-cell">
+                            <div class="especialidad-badge">
+                                {{ turno.especialidad }}
+                            </div>
+                        </td>
+                        
+                        <td class="estado-cell">
+                            <div class="estado-badge" [ngClass]="'estado-' + turno.estado">
+                                <mat-icon class="estado-icon">{{ getEstadoIcon(turno.estado) }}</mat-icon>
+                                <span>{{ turno.estado | titlecase }}</span>
+                            </div>
+                        </td>
+                        
+                        <td class="resena-cell">
+                            <button mat-raised-button 
+                                    color="accent"
+                                    class="action-button resena-button"
+                                    *ngIf="turno.resena" 
+                                    (click)="verResena(turno)">
+                                <mat-icon>visibility</mat-icon>
+                                Ver Reseña
+                            </button>
+                            <span *ngIf="!turno.resena" class="no-data">
+                                <mat-icon>remove</mat-icon>
+                                Sin reseña
+                            </span>
+                        </td>
+                        
+                        <td class="historial-cell">
+                            <button mat-raised-button 
+                                    color="primary"
+                                    class="action-button historial-button"
+                                    *ngIf="turno.historiaClinicaId" 
+                                    (click)="verHistorialClinicoTurno(turno)">
+                                <mat-icon>description</mat-icon>
+                                Ver Historia
+                            </button>
+                            <span *ngIf="!turno.historiaClinicaId" class="no-data">
+                                <mat-icon>remove</mat-icon>
+                                Sin historia
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>Seleccionar especialista</h2>
+    <mat-dialog-content>
+      <mat-form-field appearance="fill" style="width:100%;">
+        <mat-label>Especialista</mat-label>
+        <mat-select [(ngModel)]="especialista">
+          <mat-option [value]="''">Todos</mat-option>
+          <mat-option *ngFor="let esp of especialistas" [value]="esp">{{ esp }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button (click)="dialogRef.close()">Cancelar</button>
+      <button mat-raised-button color="primary" (click)="dialogRef.close(especialista)">Aceptar</button>
+    </mat-dialog-actions>

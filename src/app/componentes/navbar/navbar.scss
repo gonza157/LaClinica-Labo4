@@ -1,0 +1,37 @@
+.navbar {
+  background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+
+  .logo {
+    font-weight: bold;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #ffd54f;
+    }
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  .nav-btn {
+    color: white;
+    margin: 0 4px;
+    transition: background-color 0.3s ease;
+    border-radius: 8px;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+  }
+
+  button {
+    color: white;
+  }
+}

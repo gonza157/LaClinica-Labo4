@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>{{ data.titulo }}</h2>
+<mat-dialog-content>
+  <div class="estrellas">
+    <ng-container *ngFor="let star of [1,2,3,4,5]">
+      <span
+        class="estrella"
+        [class.seleccionada]="star <= estrellas"
+        [class.hovered]="hoverEstrella > 0 && star <= hoverEstrella"
+        (click)="setEstrellas(star)"
+        (mouseenter)="setHover(star)"
+        (mouseleave)="resetHover()"
+        >&#9733;</span>
+    </ng-container>
+  </div>
+  <textarea [(ngModel)]="comentario" rows="3" style="width:100%" placeholder="Nos gustaría conocer tu opinión."></textarea>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button color="primary" [disabled]="estrellas === 0" (click)="aceptar()">Aceptar</button>
+</mat-dialog-actions>

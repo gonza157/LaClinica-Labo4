@@ -1,0 +1,356 @@
+.solicitar-turno-main-container {
+    background: var(--bg-color);
+    color: var(--text-color);
+    padding: 2rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.solicitar-turno-card {
+    background: var(--bg-color);
+    color: var(--text-color);
+    box-shadow: 0 4px 16px var(--shadow);
+    border-radius: 18px;
+    padding: 2rem;
+    width: 700px;
+    margin: 2rem auto;
+    text-align: center;
+
+    h2 {
+        margin-bottom: 1.5rem;
+        color: var(--button-bg);
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+        align-items: stretch;
+
+        label {
+            text-align: left;
+            margin-bottom: 0.2rem;
+            color: var(--text-color, #222);
+            font-weight: 500;
+        }
+    }
+
+    .dias-disponibles button,
+    .horarios-disponibles button {
+
+        &:hover:not(.disabled) {
+              background: #1976d2;
+              border-color: #90caf9;
+        }
+
+        &.selected {
+              background: #1976d2;
+              color: #fff;
+              border-color: #90caf9;
+        }
+    }
+
+    .horarios-disponibles {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.7rem 0.7rem;
+        margin-bottom: 1rem;
+    }
+
+    .horarios-disponibles button {
+        width: 100%;
+        margin: 0;
+    }
+
+    .btn-solicitar {
+        margin-top: 1.5rem;
+        background: linear-gradient(90deg, #42a5f5, #64b5f6);
+        color: white;
+        padding: 0.8rem 1rem;
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background: linear-gradient(90deg, #1976d2, #42a5f5);
+            opacity: 0.95;
+        }
+    }
+}
+
+.paciente-label {
+    text-align: left;
+    display: block;
+    margin-bottom: 0.5rem; // Igual que los otros labels
+    margin-left: 0.2rem;
+    font-weight: 600;
+    color: var(--text-color, #222);
+}
+
+button.disabled,
+button:disabled {
+    background: #ccc !important;
+    color: #888 !important;
+    cursor: not-allowed !important;
+}
+
+.especialistas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.especialista-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2.5px solid #1976d2;
+    border-radius: 12px;
+    background: var(--bg-color, #222);
+    color: var(--button-text, #eee);
+    padding: 0.8rem 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    height: 140px;
+    width: 200px;
+
+    img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 0.4rem;
+        border: 2px solid #90caf9;
+        background: #fff;
+    }
+
+    span {
+        font-size: 0.9rem;
+        font-weight: 700;
+        text-align: center;
+        line-height: 1.2;
+        color: #1976d2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        word-wrap: break-word;
+        max-width: 100%;
+        margin-top: 0.2rem;
+    }
+
+    &:hover:not(:disabled),
+    &.selected {
+        border-color: #1976d2;
+        background: #e3f2fd;
+        color: #1976d2;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+.especialidad-row {
+    display: grid;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.especialidad-label {
+    min-width: 120px;
+    font-weight: 600;
+    color: var(--text-color, #222);
+    margin-top: 0.5rem;
+}
+
+.especialidades-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    place-items: center;
+}
+
+.especialidad-btn-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 140px;
+}
+
+.especialidad-nombre {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text-color, #222);
+    text-align: center;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+    max-width: 100%;
+}
+
+.especialidad-btn {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    background: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border 0.2s, background 0.2s;
+    padding: 0;
+    margin-bottom: 0.2rem;
+
+    img {
+        width: 76px;
+        height: 76px;
+        object-fit: cover;
+        border-radius: 50%;
+        background: #fff;
+    }
+
+    &.selected {
+        border-color: #8e24aa;
+        background: #3a1850;
+    }
+}
+
+// ...existing code...
+.horarios-disponibles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.7rem 0.7rem;
+    margin-bottom: 1rem;
+}
+
+.horarios-disponibles button {
+    width: 100%;
+    min-width: 105px;
+    min-height: 105px;
+    border-radius: 10px;
+    /* ...resto de estilos... */
+}
+
+.pacientes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.paciente-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    background: var(--bg-color, #222);
+    color: var(--button-text, #eee);
+    padding: 1rem 0.5rem 0.5rem 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    height: 160px;
+    width: 160px;
+    //box-shadow: 0 2px 8px #0002;
+
+    img {
+        width: 76px;
+        height: 76px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 0.5rem;
+        border: 2px solid #8e24aa44;
+        background: #fff;
+    }
+
+    span {
+        font-size: 1rem;
+        font-weight: 500;
+        text-align: center;
+        margin-top: 0.3rem;
+        color: #8e24aa;
+    }
+
+    &:hover:not(:disabled),
+    &.selected {
+        border-color: #8e24aa;
+        background: #ede7f6;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+
+// Unifica el estilo de todos los botones principales
+.especialista-btn,
+.especialidad-btn,
+.paciente-btn,
+.horarios-disponibles button,
+.dias-disponibles button {
+  background: var(--card-bg);
+  border: 2px solid #8e24aa;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: box-shadow 0.2s, border 0.2s, background 0.2s;
+  box-shadow: 0 2px 8px #0002;
+  color: var(--text-color);
+
+  span, .especialidad-nombre {
+    font-size: 0.95rem;
+    color: #8e24aa;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  &:hover:not(:disabled):not(.disabled) {
+    box-shadow: 0 4px 16px #8e24aa44;
+    border: 2.5px solid #6a1b9a;
+    background: #f3e5f5;
+  }
+
+  &.selected {
+    border-color: #8e24aa;
+    background: #ede7f6;
+    color: #6a1b9a;
+  }
+
+  &.disabled,
+  &:disabled {
+    background: #ccc !important;
+    color: #888 !important;
+    border-color: #666 !important;
+    cursor: not-allowed !important;
+    box-shadow: none;
+  }
+}
+
+.label-section {
+    display: block;
+    text-align: left;
+    margin-bottom: 0.7rem; // Ajusta este valor para igualar la separación de "Especialistas"
+    margin-left: 0.2rem;
+    font-weight: 600;
+    color: var(--text-color, #222);
+}

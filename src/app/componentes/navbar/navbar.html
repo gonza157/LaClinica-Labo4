@@ -1,0 +1,35 @@
+<mat-toolbar color="primary" class="navbar" *ngIf="shouldShowNavbar">
+  <span class="logo" [routerLink]="homeRoute">Clínica Iglesias</span>
+  <span class="spacer"></span>
+
+  <ng-container *ngIf="isPaciente || isAdmin">
+    <button mat-button routerLink="/solicitar-turno" class="nav-btn">Solicitar Turno</button>
+  </ng-container>
+
+  <!-- Paciente -->
+  <ng-container *ngIf="isPaciente">
+    <button mat-button routerLink="/turnos" class="nav-btn">Mis Turnos</button>
+  </ng-container>
+
+  <!-- Especialista -->
+  <ng-container *ngIf="isEspecialista">
+    <button mat-button routerLink="/turnos" class="nav-btn">Mis Turnos</button>
+    <button mat-button routerLink="/especialista/pacientes" class="nav-btn">Pacientes</button>
+  </ng-container>
+
+  <!-- Admin -->
+  <ng-container *ngIf="isAdmin">
+    <button mat-button routerLink="/turnos" class="nav-btn">Turnos</button>
+    <button mat-button routerLink="/admin/usuarios" class="nav-btn">Usuarios</button>
+  </ng-container>
+
+  <ng-container *ngIf="isPaciente || isAdmin || isEspecialista">
+    <button mat-button routerLink="/mi-perfil" class="nav-btn">Mi Perfil</button>
+    <button mat-button (click)="logout()" class="nav-btn">Cerrar Sesión</button>
+  </ng-container>
+
+  <button mat-button (click)="toggleTheme()">
+    {{ darkMode ? '☀️ Modo Claro' : '🌙 Modo Oscuro' }}
+  </button>
+
+</mat-toolbar>

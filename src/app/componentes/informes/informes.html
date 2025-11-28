@@ -1,0 +1,55 @@
+<div class="informes-container">
+
+    <h2>📊 Informes y Estadísticas</h2>
+    <button class="excel-main-btn" (click)="descargarExcel()">
+        📁 Descargar Excel Completo
+    </button>
+
+    <section class="informe-section">
+        <h3>🔐 Log de ingresos</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Fecha y Hora</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let log of logs">
+                    <td>{{ log.usuario }}</td>
+                    <td>{{ log.fecha | date:'short' }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <button (click)="descargarPDFLog()">Descargar PDF</button>
+    </section>
+    <section class="informe-section">
+        <h3>🏥 Turnos por Especialidad</h3>
+        <canvas baseChart [data]="barChartData" [options]="barChartOptions" [type]="'bar'"></canvas>
+        <div class="botones">
+            <!--<button (click)="descargarExcel()">Descargar Excel</button>-->
+            <button (click)="descargarPDF()">Descargar PDF</button>
+        </div>
+    </section>
+
+    <section class="informe-section">
+        <h3>📅 Turnos por Día</h3>
+        <canvas baseChart [data]="barChartDataDias" [options]="barChartOptionsDias" [type]="'bar'"></canvas>
+        <button (click)="descargarPDFPorDia()">Descargar PDF</button>
+    </section>
+
+    <section class="informe-section">
+        <h3>👩‍⚕️ Turnos por Médico</h3>
+        <label>Desde: <input type="date" [(ngModel)]="fechaDesde"></label>
+        <label>Hasta: <input type="date" [(ngModel)]="fechaHasta"></label>
+        <button (click)="procesarEstadisticas()">Filtrar</button>
+        <div *ngFor="let chart of pieChartDataMedicos" style="margin-bottom: 2rem;">
+            <h4>{{ chart.nombre }}</h4>
+            <canvas baseChart [data]="chart.data" [options]="pieChartOptionsMedicos" [type]="'pie'">
+            </canvas>
+        </div>
+        <button (click)="descargarPDFPorMedico()">Descargar PDF</button>
+    </section>
+
+
+</div>
